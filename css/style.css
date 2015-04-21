@@ -1,0 +1,21 @@
+body {
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+.gameTitle {
+	font-size: 24;
+	font-weight: bolder;
+	padding:30px 10px;
+	text-align:center;
+}
+.rightColumn {
+	float:left;
+	border:1px solid #4c7300;
+	left:-2px;
+	top:-2px;
+	background:#eff2df;
+	color:#4c7300;
+	text-decoration:none;
+	padding:6px 10px;
+	font-weight:bold;
+}
