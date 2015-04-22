@@ -109,7 +109,8 @@ function isColliding (enemy){
     else {
         return false;
     }
-    };
+	    
+};
 
     /* This object defines the publicly accessible functions available to
      * developers by creating a global Resources object.
@@ -121,6 +122,7 @@ function isColliding (enemy){
         isReady: isReady,
      // added a level property to increase speed
         gameLevel: 2,
-        isColliding: isColliding
+        isColliding: isColliding,
+
     };
 })();

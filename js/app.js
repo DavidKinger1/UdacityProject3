@@ -170,24 +170,6 @@ Player.prototype.handleInput = function(keyPress) {
             40: 'down'
         };
     player.handleInput(e);
-})
-    var textOverlay = {
-        level:1,
-        score:9999,
-        levelText: "LEVEL:",
-        scoreText: "SCORE:"
-    };
-function renderOverlay () {
-    var midText;
-    var midCanvas;
-    //ctx.canvas.bgColor = "Black";
-    //ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
-    ctx.strokeStyle='Black';
-    ctx.fillStyle = 'Yellow';
-    ctx.font = '40pt Arial';
-    midText = ctx.measureText(textOverlay.levelText);
-    midText =midText.width/2;
-    midCanvas = ctx.canvas.width / 2;
-    ctx.fillText(textOverlay.scoreText, midCanvas - midText, 0);
-    ctx.strokeText(textOverlay.levelText, midCanvas - midText, 0)
-};
+});
+
+
