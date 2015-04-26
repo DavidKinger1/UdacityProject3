@@ -25,7 +25,7 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         patterns = {},
         lastTime;
-    
+
     canvas.width = 505;
     canvas.height = 606;
     doc.body.appendChild(canvas);
@@ -138,7 +138,7 @@ var Engine = (function(global) {
             }
         }
         renderEntities();
-        
+
     }
 
     /* This function is called by the render function and is called on each game
@@ -154,16 +154,16 @@ var Engine = (function(global) {
             enemy.render();
         })
     };
-    
-// if enemy and player touch then reset player to starting position
+
+    // if enemy and player touch then reset player to starting position
     function checkCollisions() {
         allEnemies.forEach( function(enemy) {
         if (Resources.isColliding(enemy)) {
-             reset()
-            }
+            reset();
+        }
         })
     };
-    
+
     /* This function does nothing but it could have been a good place to
      * handle game reset states - maybe a new game menu or a game over screen
      * those sorts of things. It's only called once by the init() method.

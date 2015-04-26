@@ -1,10 +1,10 @@
-// Enemies our player must avoid
-var Enemy = function(spriteImg, eNum) {
+    // Enemies our player must avoid
+Enemy = function(spriteImg, eNum) {
     // image hieght and width
     this.width = 101;
     this.height = 171;
     // Random enemy speed generator so enemies change speeds
-    this.speedMulti = (25* Math.random())/ 10 + 5; 
+    this.speedMulti = (25 * Math.random()) / 10 + 5;
     // absolute row settings to align enemies to their rows eNum is row assigned
     switch (eNum) {
         case 0:
@@ -12,14 +12,14 @@ var Enemy = function(spriteImg, eNum) {
             break;
         case 1:
             this.row = 140;
-            //alert(this.enemyRow = 145);
             break;
         case 2:
             this.row = 225;
-            //alert(this.enemyRow = 225);
+            break;
         default:
             break;
-        }
+    }
+
     // col set to zero so enemy doesn't appear on screen till time
     // create bounding box dimensions for collision detection
     this.col = 0;
@@ -30,23 +30,22 @@ var Enemy = function(spriteImg, eNum) {
 
     // The image/sprite for our enemies, this uses
     // temp image statement
-    if( spriteImg ==="") {
+    if (spriteImg === "") {
         spriteImg = 'images/enemy-bug.png';
     }
-    this.sprite = spriteImg ;
+    this.sprite = spriteImg;
     // dimensions of the enemy sprite for collision detection
     // add postion properties
     this.left = 0;
     this.right = this.width;
     this.bottom = this.height + this.row;
     this.top = this.row;
-    
 };
 
     // Update the enemy's position ajusting for different cpu speeds
     // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    
+
     // update the position the enemy is
     this.col += dt + this.speedMulti;
 
@@ -55,12 +54,12 @@ Enemy.prototype.update = function(dt) {
     this.top = this.row;
     this.right = this.col * 150 + this.width;
     this.left = this.col * 150;
-    
+
     // check if enemy off screen and reset poition to 0
     // assign a new speed to enemy when leaves canvas
     if (this.col > 4) {
-        this.col=0;
-        this.speedMulti = (Resources.gameLevel * Math.random()) / 100; 
+        this.col = 0;
+        this.speedMulti = (Resources.gameLevel * Math.random()) / 100;
     }
 };
 
@@ -69,51 +68,51 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.col * 150, this.row);
 };
 
-// This class requires an update(), render() and
-// a handleInput() method.
-var Player = function() {
-    
+    // This class requires an update(), render() and
+    // a handleInput() method.
+Player = function() {
+
     // image hieght and width
     this.width = 101;
     this.height = 171;
-    
+
     // col set to zero so enemy doesn't appear on screen till time
     this.currentCol = 2;
     this.currentRow = 4;
     this.col = this.currentCol * 101;
     this.row = this.currentRow * 101;
-    
+
     // create bounding box dimensions for collision detection
     this.bottom = this.row + this.height;
     this.top = this.row;
     this.right = this.col + this.width;
-    this.left = this.col ;
-    
+    this.left = this.col;
+
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/char-boy.png';
-}
+};
 
     //reset player to start position
-Player.prototype.reset = function () {
+Player.prototype.reset = function() {
     player = null;
     allEnemies = [];
     player = new Player();
-        var i = 0;
-    for (i; i < 3; i+=1) 
-        allEnemies[i] = new Enemy('images/enemy-bug.png', i%3);
-}
+    var i = 0;
+    for (i; i < 3; i += 1)
+        allEnemies[i] = new Enemy('images/enemy-bug.png', i % 3);
+};
 
     // Update the players position and bounding box, required method for game
 Player.prototype.update = function() {
     this.col = player.currentCol * 101;
     this.row = player.currentRow * 83 + 70;
-    
-    // check if player wins
-    if ( player.currentRow == -1) 
-            player.reset();
 
-     //update bounding box
+    // check if player wins
+    if (player.currentRow === -1)
+        player.reset();
+
+    //update bounding box
     this.bottom = this.row + this.height;
     this.top = this.row;
     this.right = this.col + this.width;
@@ -121,55 +120,55 @@ Player.prototype.update = function() {
 
 };
 
-// Draw the enemy on the screen, required method for game
+    // Draw the enemy on the screen, required method for game
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.col, this.row);
 };
 
-// Checks the key pressed and moves the player and also checks boundries so player 
-// cannot go off the playfield
+    // Checks the key pressed and moves the player and also checks boundries so player
+    // cannot go off the playfield
 Player.prototype.handleInput = function(keyPress) {
     switch (keyPress.keyIdentifier) {
         case "Up":
-            if (player.currentRow > -1 ?  player.currentRow -=1: player.currentRow = -1);
-        break;
+            if (player.currentRow > -1 ? player.currentRow -= 1 : player.currentRow = -1);
+            break;
         case "Down":
-            if (player.currentRow < 4 ?  player.currentRow +=1: player.currentRow = 4);
-        break;
+            if (player.currentRow < 4 ? player.currentRow += 1 : player.currentRow = 4);
+            break;
         case "Right":
-            if (player.currentCol < 4 ?  player.currentCol +=1: player.currentCol = 4);
-        break;
-        case "Left":console.log(keyPress.keyIdentifier);
-            if (player.currentCol > 0 ?  player.currentCol -=1: player.currentCol = 0);
-        break;
+            if (player.currentCol < 4 ? player.currentCol += 1 : player.currentCol = 4);
+            break;
+        case "Left":
+            console.log(keyPress.keyIdentifier);
+            if (player.currentCol > 0 ? player.currentCol -= 1 : player.currentCol = 0);
+            break;
         default:
             console.log('invalid key input');
-        break;
-}
+            break;
+    }
 };
 
     // Now instantiate your objects.
     // Place all enemy objects in an array called allEnemies
     // Place the player object in a variable called player
-    var allEnemies = [], player = {};
+var allEnemies = [],
 
     //initialize player object
     player = new Player();
-    // number of enemies to deploy and initialize    
-    var i = 0;
-    for (i; i < 3 * Resources.gameLevel; i+=1) 
-        allEnemies[i] = new Enemy('images/enemy-bug.png', i%3);
+    // number of enemies to deploy and initialize
+var i = 0;
+for (i; i < 3 * Resources.gameLevel; i += 1)
+    allEnemies[i] = new Enemy('images/enemy-bug.png', i % 3);
 
     // This listens for key presses and sends the keys to your
     // Player.handleInput() method. You don't need to modify this.
-    document.addEventListener('keyup', function(e) {
-        var allowedKeys = {
-            37: 'left',
-            38: 'up',
-            39: 'right',
-            40: 'down'
-        };
+document.addEventListener('keyup', function(e) {
+    var allowedKeys = {
+        37: 'left',
+        38: 'up',
+        39: 'right',
+        40: 'down'
+    };
     player.handleInput(e);
 });
-
 
